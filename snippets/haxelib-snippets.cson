@@ -34,7 +34,7 @@
   'dependencies':
     'prefix': 'dependencies'
     'body': '"dependencies": {\n\t
-        "${1:<name>}":"${2:<version>}"\n
+        "${1:<name>}": "${2:<version>}"\n
     }$0'
     'description': 'An object describing the dependencies of the library'
   'license':

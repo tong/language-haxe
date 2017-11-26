@@ -1,3 +1,8 @@
+## 0.7.0
+* Rename grammar selector: source.haxe -> source.hx
+* Update to haxe 4
+* Misc snippet fixes
+
 ## 0.6.0
 * Snippets: cast, dynamic, using
 * Snippets: std library top level definitions

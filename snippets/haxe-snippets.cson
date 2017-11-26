@@ -1,30 +1,4 @@
-'.source.haxe':
-
-    '#if':
-        'prefix': '#if'
-        'body': '#if ${1:<flag>}\n#end$0'
-        'description': 'Conditional Compilation'
-        'descriptionMoreURL': 'http://haxe.org/manual/lf-condition-compilation.html'
-    '#else':
-        'prefix': '#else'
-        'body': '#else$0'
-        'description': 'Conditional Compilation'
-        'descriptionMoreURL': 'http://haxe.org/manual/lf-condition-compilation.html'
-    '#elseif':
-        'prefix': '#elseif'
-        'body': '#elseif ${1:<flag>}$0'
-        'description': 'Conditional Compilation'
-        'descriptionMoreURL': 'http://haxe.org/manual/lf-condition-compilation.html'
-    '#end':
-        'prefix': '#end'
-        'body': '#end$0'
-        'description': 'Conditional Compilation'
-        'descriptionMoreURL': 'http://haxe.org/manual/lf-condition-compilation.html'
-    '#else error':
-        'prefix': '#error'
-        'body': '#error "${1:<flag>}"$0'
-        'description': 'Conditional Compilation'
-        'descriptionMoreURL': 'http://haxe.org/manual/lf-condition-compilation.html'
+'.source.hx':
 
     'Line Comment Start':
         'prefix': '//'
@@ -33,12 +7,6 @@
         'prefix': '/**'
         'body': '/**\n\t$1\n*/$0'
         'description': 'Block comment'
-
-    'trace':
-        'prefix': 'trace'
-        'body': 'trace( $1 )$0'
-        'description': 'Print information'
-        'descriptionMoreURL': 'http://haxe.org/manual/lf-trace-log.html'
 
     'true':
         'prefix': 'true'
@@ -52,12 +20,21 @@
 
     'Regular Expression':
         'prefix': '~/'
-        'body': '~/${1:<pattern>}/${2:<modifier>};$0'
+        'body': '~/${1:<pattern>}/${2:<modifier>}$0'
         'description': 'Regular expression'
         'descriptionMoreURL': 'https://haxe.org/manual/std-regex.html'
 
+    'trace':
+        'prefix': 'trace'
+        'body': 'trace( $1 )$0'
+        'description': 'Print information'
+        'descriptionMoreURL': 'http://haxe.org/manual/lf-trace-log.html'
+
+    'untyped':
+        'prefix': 'untyped'
+        'body': 'untyped '
     'package':
-        'prefix': 'package '
+        'prefix': 'package'
         'body': 'package ${1:<name>};$0'
     'import':
         'prefix': 'import'
@@ -75,11 +52,17 @@
     'public':
         'prefix': 'public'
         'body': 'public '
+        'descriptionMoreURL': 'https://haxe.org/manual/class-field-visibility.html'
     'inline':
         'prefix': 'inline'
         'body': 'inline '
         'description': 'Allow insert function body in place'
         'descriptionMoreURL': 'https://haxe.org/manual/class-field-inline.html'
+    'dynamic':
+        'prefix': 'dynamic function'
+        'body': 'dynamic function ${1:<name>}($2) {}$0'
+        'description': 'Make method (re-)bindable'
+        'descriptionMoreURL': 'https://haxe.org/manual/class-field-dynamic.html'
     'static':
         'prefix': 'static'
         'body': 'static '
@@ -90,14 +73,14 @@
     'else':
         'prefix': 'else '
         'body': 'else {\n\t$0\n}'
-    'else..if':
+    'else if':
         'prefix': 'elseif'
         'body': 'else if( ${1:condition} ) {\n\t$0\n}'
-    'if..else':
+    'if else':
         'prefix': 'ifelse'
         'body': 'if( ${1:condition} ) \{\n\t${2:expr}\n\} else \{\n\t${3:expr}\n\}'
 
-    'switch..case':
+    'switch case':
         'prefix': 'switch '
         'body': 'switch $1 \{\ncase ${2:expr}:\n\t$0\n}\n'
     'case':
@@ -113,7 +96,7 @@
     'while':
         'prefix': 'while'
         'body': 'while( ${1:true} ) {\n\t$2\n}$0'
-    'do..while':
+    'do … while …':
         'prefix': 'do '
         'body': 'do {\n\t$1\n} while( ${2:true} );$0'
     'continue':
@@ -122,23 +105,6 @@
     'break':
         'prefix': 'break'
         'body': 'break;'
-
-    'for i in 0...end':
-        'prefix': 'fori'
-        'body': 'for( ${1:var} in ${2:0}...${3:end} ) {\n\t${4:expr}\n}$0'
-    'for a in b':
-        'prefix': 'for'
-        'body': 'for( ${1:value} in ${2:iterable} ) {\n\t$3\n}\n$0'
-
-    'try':
-        'prefix': 'try'
-        'body': 'try {\n\t$1\n} catch(${2:e:Dynamic}) {\n\t${3:trace(e);}\n}$0'
-    'catch':
-        'prefix': 'catch'
-        'body': 'catch(${1:e:Dynamic}) {\n\t${2:trace(e);}\n}\n$0'
-    'throw':
-        'prefix': 'throw'
-        'body': 'throw ${1:expr};$0'
 
     'cast':
         'prefix': 'cast'
@@ -182,18 +148,17 @@
         'prefix': 'set_'
         'body': 'function set_${1:name}(${2:v}:${3:Type}) : ${3:Type} \{\n\treturn $4;\n\}$0'
 
-    'dynamic':
-        'prefix': 'dynamic function'
-        'body': 'dynamic function ${1:<name>}($2) {}$0'
     'function':
         'prefix': 'function'
-        'body': 'function ${1:name}( ${2:params} )${3: : ${4:Void}} \{\n\t$5\n\}$0'
+        'body': 'function ${1:name}(${2:params})${3: : ${4:Void}} \{\n\t$5\n\}$0'
+    'Anonymous Function':
+        'prefix': 'f'
     'method':
         'prefix': 'static function'
         'body': '${1:static }${2:inline }function ${3:name}($4)${5: : ${6:Void}} \{\n\t$0\n\}'
     'macro function':
         'prefix': 'macro'
-        'body': 'macro public static function ${1:name}( ${2:e : haxe.macro.Expr} ) : haxe.macro.Expr \{\n\t$0\n\}'
+        'body': 'macro public static function ${1:name}(${2:e : haxe.macro.Expr}) : haxe.macro.Expr \{\n\t$0\n\}'
 
     'class':
         'prefix': 'class '
@@ -215,12 +180,18 @@
         'body': 'typedef ${1:Name} = $2'
     'abstract':
         'prefix': 'abstract'
-        'body': 'abstract ${1:Name}(${2:Type}) {\n\n\tpublic inline function new( ${3:v} : ${2:Type} ) {\n\t\tthis = ${3:v};\n\t}\n}$0'
+        'body': 'abstract ${1:Name}(${2:Type}) {\n\n\tpublic inline function new(${3:v} : ${2:Type}) {\n\t\tthis = ${3:v};\n\t}\n}$0'
         'description': 'Abstract type'
         'descriptionMoreURL': 'http://haxe.org/manual/types-abstract.html'
     'extern class':
         'prefix': 'extern class '
         'body': 'extern ${1:TYPE} {\n\t$2\n}\n$0'
+    'implements':
+        'prefix': 'implements'
+        'body': 'implements ${1:TYPE}$0'
+    'new':
+        'prefix': 'new'
+        'body': 'new ${1:TYPE}($0'
 
     '@:metadata':
         'prefix': '@:'
@@ -239,6 +210,23 @@
     'main':
         'prefix': 'main'
         'body': 'static function main() {\n\t$0\n}'
+
+    'for i in 0...end':
+        'prefix': 'fori'
+        'body': 'for( ${1:var} in ${2:0}...${3:end} ) {\n\t${4:expr}\n}$0'
+    'for a in b':
+        'prefix': 'for'
+        'body': 'for( ${1:value} in ${2:iterable} ) {\n\t$3\n}\n$0'
+
+    'try':
+        'prefix': 'try'
+        'body': 'try {\n\t$1\n} catch(${2:e:Dynamic}) {\n\t${3:trace(e);}\n}$0'
+    'catch':
+        'prefix': 'catch'
+        'body': 'catch(${1:e:Dynamic}) {\n\t${2:trace(e);}\n}\n$0'
+    'throw':
+        'prefix': 'throw'
+        'body': 'throw ${1:expr};$0'
 
     'private function':
         'prefix': 'prf'
@@ -266,88 +254,24 @@
         'prefix': 'psif'
         'body': 'public static inline function ${1:name}($2)${3: : ${4:Void}} {\n\t$0\n}'
 
-    'Array<T>':
-        'prefix': 'Array'
-        'body': 'Array<${1:T}>$0'
-        'description': 'Collection of elements'
-        'descriptionMoreURL': 'http://api.haxe.org/Array.html'
-    'ArrayAccess<T>':
-        'prefix': 'ArrayAccess<T>'
-        'body': 'ArrayAccess<${1:T}>$0'
-    'Bool':
-        'prefix': 'Bool'
-        'body': 'Bool$0'
-    'Class<T>':
-        'prefix': 'Class'
-        'body': 'Class<${1:T}>$0'
-    'Date':
-        'prefix': 'Date'
-        'body': 'Date$0'
-    'Dynamic':
-        'prefix': 'Dynamic'
-        'body': 'Dynamic$0'
-    'EReg':
-        'prefix': 'EReg'
-        'body': 'EReg( ${1:r}, ${2:opt} )$0'
-    'Float':
-        'prefix': 'Float'
-        'body': 'Float$0'
-    'Int':
-        'prefix': 'Int'
-        'body': 'Int$0'
-    'List<T>':
-        'prefix': 'List'
-        'body': 'List<${1:T}>$0'
-        'description': 'A linked-list of elements'
-        'descriptionMoreURL': 'http://api.haxe.org/List.html'
-    'Map<K,V>':
-        'prefix': 'Map<K,V>'
-        'body': 'Map<${1:K},${2:V}>$0'
-        'description': 'Key to value mapping for arbitrary value types'
-        'descriptionMoreURL': 'http://api.haxe.org/Map.html'
-    'Math':
-        'prefix': 'Math'
-        'body': 'Math$0'
-    'Null<T>':
-        'prefix': 'Null<T>'
-        'body': 'Null<${1:T}>$0'
-    'Reflect':
-        'prefix': 'Reflect'
-        'body': 'Reflect.$0'
-        'description': 'Runtime reflection of types and fields'
-        'descriptionMoreURL': 'http://haxe.org/manual/std-reflection.html'
-    'Single':
-        'prefix': 'Single'
-        'body': 'Single$0'
-        'description': 'Single-precision IEEE 32bit float (4-byte)'
-    'Std':
-        'prefix': 'Std'
-        'body': 'Std.$0'
-        'description': 'Standard methods for manipulating basic types'
-    'String':
-        'prefix': 'String'
-        'body': 'String$0'
-    'StringBuf':
-        'prefix': 'StringBuf'
-        'body': 'StringBuf$0'
-    'StringTools':
-        'prefix': 'StringTools'
-        'body': 'StringTools$0'
-    'Type':
-        'prefix': 'Type'
-        'body': 'Type$0'
-    'UInt':
-        'prefix': 'UInt'
-        'body': 'UInt$0'
-    'ValueType':
-        'prefix': 'ValueType'
-        'body': 'ValueType$0'
-    'Void':
-        'prefix': 'Void'
-        'body': 'Void$0'
-    'Xml':
-        'prefix': 'Xml'
-        'body': 'Xml$0'
-    'XmlType':
-        'prefix': 'XmlType'
-        'body': 'XmlType$0'
+    'Javascript Magic':
+        'prefix': '__js__'
+        'body': '__js__(${1:expr},${2:params})$0'
+        'description': 'Access specific JavaScript platform features'
+        'descriptionMoreURL': 'https://haxe.org/manual/target-javascript-untyped.html'
+    'JS: o instanceof cl':
+        'prefix': '__instanceof__'
+        'body': '__instanceof__(${1:o},${2:cl})$0'
+        'description': 'Same as o instanceof cl in JavaScript.'
+    'JS: typeof o':
+        'prefix': '__typeof__'
+        'body': '__typeof__(${1:o})$0'
+        'description': 'Same as typeof o in JavaScript.'
+    'JS: a === b':
+        'prefix': '__strict_eq__'
+        'body': '__strict_eq__(${1:a},${2:b})$0'
+        'description': 'Same as a === b in JavaScript.'
+    'JS: a !== b':
+        'prefix': '__strict_neq__'
+        'body': '__strict_neq__(${1:a},${2:b})$0'
+        'description': 'Same as a !== b in JavaScript.'
